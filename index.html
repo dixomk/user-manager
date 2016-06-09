@@ -1,0 +1,73 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Web storage</title>
+	<script src="js/libs/underscore-min.js"></script>
+	<script src="js/modules/observer.js"></script>
+	<script src="js/modules/store.js"></script>
+	<script src="js/models/users.js"></script>
+	<script src="js/views/view.js"></script>
+	<style>
+		.users-list td{
+			width:150px;
+			border:1px skyblue solid;
+		}
+	</style>
+</head>
+<body>
+	<div id="webStore">
+	</div>
+	<template id="user-manager">
+		<div class="add-new-user">
+			<form id="add-user-form">
+				<label for="firstName">First name:</label>
+				<input id="firstName" type="text" name="firstName">
+				<label for="lastName">Last name:</label>
+				<input id="lastName" type="text" name="lastName">
+				<label for="age">Age:</label>
+				<input id="age" type="text" name="age">
+				<input id="id" type="text" name="id" hidden>
+			</form>
+			<button class="add-user-btn">Add</button>
+		</div>
+		<br>
+		<div>
+			<label for="user-filter">Filter:</label>
+			<input id="user-filter-text" type="text">
+			<button class="user-filter-btn">Go</button>
+		</div>
+		<br>
+		<table class="users-list">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>First name</td>
+					<td>Last name</td>
+					<td>Age</td>
+					<td>Tools</td>
+				</tr>
+			</thead>
+		</table>
+		<br>
+		<div>
+			<button class="users-clear-btn">Clear</button>
+			<button class="users-save-btn">Save</button>
+			<button class="users-cancel-btn">Cancel</button>
+		</div>
+	</template>
+	<script type="text/template" id="user-data">
+			<td>{{id}}</td>
+			<td>{{firstName}}</td>
+			<td>{{lastName}}</td>
+			<td>{{age}}</td>
+			<td><button class="user-edit-btn">edit</button><button class="user-delete-btn">delete</button></td>
+	</script>
+	<script>
+		var store = new app.Store();
+		var users = new app.Users(store);
+		var usersView = new app.UsersView(users,"#webStore");
+		usersView.initialize();
+	</script>
+</body>
+</html>
